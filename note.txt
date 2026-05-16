@@ -1,0 +1,43 @@
+① config — Le tout premier package chargé.
+ Il lit le fichier .env via python-dotenv et expose les variables
+  de configuration (DB_PATH, DB_TIMEOUT).
+   Tous les autres packages qui ont besoin de paramètres viennent le consulter.
+    C'est la source de vérité de la configuration.
+
+② database — Utilise la config pour ouvrir la connexion SQLite.
+ Il crée automatiquement la table employees si elle n'existe pas.
+ Il fournit la méthode get_connection() que le repository utilisera
+ plus tard.
+
+③ models — Définit l'entité métier Employee (dataclass pure).
+Elle ne connaît ni la base de données, ni les DTOs. C'est la représentation interne
+de ce qu'est un employé dans votre système.
+
+④ dtos — Deux objets de transfert : le RequestDTO reçoit et valide les données
+qui entrent (prénom, nom, email),
+ le ResponseDTO formate les données qui sortent (avec full_name calculé automatiquement).
+  Ils servent d'enveloppes propres aux frontières du système.
+
+⑤ mappers — Le traducteur universel entre toutes les couches : RequestDTO → Model,Model → ResponseDTO, Row SQL → Model.
+ Sans lui, chaque couche devrait connaître la structure des autres — ce qui créerait un couplage fort.
+
+⑥ exceptions — Définit les erreurs métier personnalisées (EmployeeNotFoundException, etc.).
+Elles sont définies ici, avant les interfaces et les services,
+pour être disponibles partout sans créer de dépendances circulaires.
+
+⑦ interfaces — Les contrats (classes abstraites ABC) que le repository et le service doivent respecter.
+ C'est grâce à elles que vous pouvez changer SQLite pour PostgreSQL demain
+ sans toucher au service — il dépend de l'interface, pas de l'implémentation.
+
+⑧ repositories — Implémente IEmployeeRepository. C'est la seule couche qui écrit du SQL.
+Elle appelle le mapper pour convertir les lignes SQL en objets Employee.
+ Elle lève des exceptions si un enregistrement est introuvable.
+
+⑨ services — Implémente IEmployeeService. C'est le chef d'orchestre : il valide via le DTO
+, convertit via le mapper, persiste via le repository, puis reconvertit la réponse.
+ Il ne sait pas qu'il y a du SQL derrière — il ne parle qu'aux interfaces.
+
+app.py — Le point d'entrée. Il instancie les objets dans le bon ordre
+(Database → Repository → Service)
+et injecte les dépendances. C'est la seule ligne
+à changer si vous remplacez SQLite par PostgreSQL.
