@@ -355,10 +355,10 @@ service = EmployeeService(repo)           # ← rien ne change
 
 ---
 
-## 👤 Auteur
+## 👤 Professeur
 
-**Bonevy BEBY**  
-📧 Bonevy BEBY  
+**Bonevy BEBY | Tél: 00221 77 862 72 72**  
+📧 Liens rx sociaux:  
 🔗 [GitHub](https://github.com/zoulou421/)  
 🔗 [LinkedIn](https://linkedin.com/in/bonevybeby)
 
