@@ -178,8 +178,8 @@ Utilisateur
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/votre-username/employee-management.git
-cd employee-management
+git clone git@github.com:zoulou421/layer_architecture_python.git
+cd layer_architecture_python
 ```
 
 ### 2. Créer un environnement virtuel
@@ -357,10 +357,10 @@ service = EmployeeService(repo)           # ← rien ne change
 
 ## 👤 Auteur
 
-**Votre Nom**  
-📧 votre.email@example.com  
-🔗 [GitHub](https://github.com/votre-username)  
-🔗 [LinkedIn](https://linkedin.com/in/votre-profil)
+**Bonevy BEBY**  
+📧 Bonevy BEBY  
+🔗 [GitHub](https://github.com/zoulou421/)  
+🔗 [LinkedIn](https://linkedin.com/in/bonevybeby)
 
 ---
 
